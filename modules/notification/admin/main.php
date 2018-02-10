@@ -53,6 +53,19 @@ if( $nv_Request->isset_request( 'del', 'post' ) )
     nv_insert_logs( NV_LANG_DATA, $module_data, 'delete_notification', $lang_module['delete_notification'] . $id . '-' . $row['message'], $admin_info['userid'] );
 
     die( 'OK' );
+}elseif ($nv_Request->isset_request('delete_list', 'post')) {
+    $listall = $nv_Request->get_title('listall', 'post', '');
+    $array_id = explode(',', $listall);
+    
+    if (! empty($array_id)) {
+        foreach ($array_id as $id) {
+            $sql = "DELETE FROM " . NV_PREFIXLANG . "_" . $module_data . " WHERE id=" . $id;
+            $db->query( $sql );
+        }
+        $nv_Cache->delMod($module_name);
+        die('OK');
+    }
+    die('NO');
 }
 
 //List Mess
@@ -97,6 +110,23 @@ if( ! empty( $generate_page ) )
     $xtpl->assign( 'GENERATE_PAGE', $generate_page );
     $xtpl->parse( 'main.generate_page' );
 }
+
+
+ 
+
+$array_action = array(
+    'delete_list_id' => $lang_global['delete']
+);
+foreach ($array_action as $key => $value) {
+    $xtpl->assign('ACTION', array(
+        'key' => $key,
+        'value' => $value
+    ));
+    $xtpl->parse('main.action_top');
+    $xtpl->parse('main.action_bottom');
+}
+ 
+
 
 $xtpl->parse( 'main' );
 $contents = $xtpl->text( 'main' );

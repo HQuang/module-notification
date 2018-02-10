@@ -50,3 +50,6 @@ $lang_module['notification_config_timeview_option'] = 'Lấy về trước %s ph
 $lang_module['notification_config_timeout'] = 'Thời gian gọi vào hệ thống để lấy tin (tính bằng giây)';
 $lang_module['config'] = 'Cấu hình module';
 $lang_module['notification_addtime'] = 'Thời gian hiện thông báo';
+
+$lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
+$lang_module['perform'] = 'Thực hiện';
